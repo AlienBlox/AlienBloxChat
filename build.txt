@@ -1,4 +1,4 @@
-displayName = AlienBlox&#39;s Chat Improvements
+displayName = AlienBlox's Chat Improvements
 author = alienblox1234
 version = 0.1
 includeSource = true

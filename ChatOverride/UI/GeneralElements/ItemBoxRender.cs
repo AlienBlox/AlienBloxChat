@@ -11,6 +11,8 @@ namespace AlienBloxChat.ChatOverride.UI.GeneralElements
         private readonly LocalizedText _text;
 
         private readonly string _hoverText;
+
+        public readonly int itemID;
         
         public ItemBoxRender(int item, string hoverText)
         {
@@ -18,6 +20,7 @@ namespace AlienBloxChat.ChatOverride.UI.GeneralElements
             _icon.Width.Set(0, 1);
             _icon.Height.Set(0, 1);
             _hoverText = hoverText;
+            itemID = item;
 
             Append(_icon);
         }
@@ -28,6 +31,7 @@ namespace AlienBloxChat.ChatOverride.UI.GeneralElements
             _icon.Width.Set(0, 1);
             _icon.Height.Set(0, 1);
             _text = text;
+            itemID = item;
 
             Append(_icon);
         }

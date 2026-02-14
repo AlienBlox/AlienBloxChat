@@ -2,11 +2,15 @@
 using AlienBloxChat.ChatOverride.UI.ChatRenders;
 using AlienBloxChat.ChatOverride.UI.GeneralElements;
 using Microsoft.Xna.Framework;
+using System.Threading.Tasks;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.Localization;
+using Terraria.ModLoader;
+using Terraria.ModLoader.UI.Elements;
 using Terraria.UI;
+using FixedUIScrollbar = Terraria.GameContent.UI.Elements.FixedUIScrollbar;
 
 namespace AlienBloxChat.ChatOverride.UI.ChatElements
 {
@@ -149,6 +153,11 @@ namespace AlienBloxChat.ChatOverride.UI.ChatElements
                 SettingsCard.Remove();
             };
 
+            ItemPickerButton.OnLeftClick += (_, _) =>
+            {
+                CreateItemSelectorGrid();
+            };
+
             Backing.Append(ChatHistoryBacking);
             Backing.Append(TextBarBacking);
 
@@ -177,6 +186,46 @@ namespace AlienBloxChat.ChatOverride.UI.ChatElements
             {
                 SettingsCard.Remove();
             }
+        }
+
+        public /*UIGrid*/ void CreateItemSelectorGrid()
+        {
+            UIGrid grid = [];
+            FixedUIScrollbar scroller = new(UserInterface.ActiveInstance);
+
+            scroller.Height.Set(0, 1);
+            SettingsBody.Append(scroller);
+
+            grid.Clear();
+            grid.Width.Set(0, 1);
+            grid.Height.Set(0, 1);
+            grid.ManualSortMethod = (_) => { };
+            grid.SetScrollbar(scroller);
+
+            Task.Run(() =>
+            {
+                lock (SettingsBody)
+                {
+                    for (int i = 0; i < ItemLoader.ItemCount; i++)
+                    {
+                        ItemBoxRender ItemBox = new(i, Language.GetOrRegister("Mods.AlienBloxChat.UI.PasteItem"));
+
+                        ItemBox.OnLeftClick += (_, _) =>
+                        {
+                            Main.chatText += $"[i:{ItemBox.itemID}]";
+                        };
+
+                        ItemBox.Width.Set(45, 0);
+                        ItemBox.Height.Set(45, 0);
+
+                        grid.Add(ItemBox);
+                    }
+
+                    SetSettingsCard(true, grid);
+                }
+            });
+            
+            //return grid;
         }
 
         public UIList CreateSettingsPage()

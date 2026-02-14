@@ -1,12 +1,77 @@
 ﻿using AlienBloxChat.ChatOverride.ChatPlayer;
+using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.GameContent.UI.Elements;
 using Terraria.GameInput;
+using Terraria.Localization;
 using Terraria.UI;
 
 namespace AlienBloxChat
 {
     public static class AlienBloxChatSpecials
     {
+        public static Vector2 Size(this CalculatedStyle style)
+        {
+            return new(style.Width, style.Height);
+        }
+
+        public static byte ToNumber(bool b)
+        {
+            return (byte)(b ? 1 : 0);
+        }
+
+        /// <summary>
+        /// Quickly inserts a text into an UI element
+        /// </summary>
+        /// <param name="element">The element to insert into</param>
+        /// <param name="text">The text</param>
+        /// <param name="textScale">The text scale</param>
+        /// <param name="large">Should the text be large</param>
+        /// <returns>The created text.</returns>
+        public static UIText InsertText(this UIElement element, string text, float textScale = 1, bool large = false)
+        {
+            UIText textElement = new(text, textScale, large);
+
+            textElement.Width.Set(0, 1);
+            textElement.Height.Set(0, 1);
+            textElement.VAlign = textElement.HAlign = 0.5f;
+
+            element.Append(textElement);
+
+            return textElement;
+        }
+
+        /// <summary>
+        /// Quickly inserts a text into an UI element
+        /// </summary>
+        /// <param name="element">The element to insert into</param>
+        /// <param name="text">The localized text</param>
+        /// <param name="textScale">The text scale</param>
+        /// <param name="large">Should the text be large</param>
+        /// <returns>The created text.</returns>
+        public static UIText InsertText(this UIElement element, LocalizedText text, float textScale = 1, bool large = false)
+        {
+            UIText textElement = new(text, textScale, large);
+
+            textElement.Width.Set(0, 1);
+            textElement.Height.Set(0, 1);
+            textElement.VAlign = textElement.HAlign = 0.5f;
+            textElement.TextOriginY = 0.5f;
+
+            element.Append(textElement);
+
+            return textElement;
+        }
+
+        public static bool IsCommand(this string s)
+        {
+            return s.ToLower() switch
+            {
+                "/clear" => true,
+                _ => false,
+            };
+        }
+
         public static ChatPlayer GetChatPlr(this Player plr)
         {
             return plr.GetModPlayer<ChatPlayer>();

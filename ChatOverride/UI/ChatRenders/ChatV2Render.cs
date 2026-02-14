@@ -1,14 +1,19 @@
-﻿using AlienBloxChat.ChatOverride.UI.ChatElements;
+﻿using AlienBloxChat.ChatOverride.System;
+using AlienBloxChat.ChatOverride.UI.ChatElements;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.GameContent.UI.Elements;
 using Terraria.ModLoader;
 using Terraria.UI;
 
 namespace AlienBloxChat.ChatOverride.UI.ChatRenders
 {
+    [Autoload(Side = ModSide.Client)]
     public class ChatV2Render : ModSystem
     {
+        public static ChatV2Render Instance => ModContent.GetInstance<ChatV2Render>();
+
         internal ChatV2 Element;
 
         private UserInterface _element;
@@ -63,6 +68,44 @@ namespace AlienBloxChat.ChatOverride.UI.ChatRenders
             {
                 ChatLayer.Active = false;
             }
+        }
+
+        public static void WriteLine(string text)
+        {
+            string[] lines = text.Split('\n');
+
+            if (Instance.Element == null)
+            {
+                return;
+            }
+
+            List<UIText> computeLines = [];
+            computeLines.Clear();
+
+            foreach (var line in lines)
+            {
+                UIText TextObj = new(line);
+
+                TextObj.Width.Set(-30, 1);
+                TextObj.Height.Set(30, 0);
+                TextObj.TextOriginX = 0;
+                TextObj.HAlign = 1;
+
+                computeLines.Add(TextObj);
+            }
+
+            Instance.Element.ChatHistory.AddRange(computeLines);
+        }
+
+        public static void Clear()
+        {
+            if (Instance.Element == null)
+            {
+                return;
+            }
+
+            Instance.Element.ChatHistory.Clear();
+            ChatCache.ChatOutput.Clear();
         }
     }
 }

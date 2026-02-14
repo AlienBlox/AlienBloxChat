@@ -1,1 +1,15 @@
 Keybinds.OpenChat.DisplayName: Open Chat
+
+UI: {
+	SettingsButton: Settings
+	TextColorButton: Text Color Picker
+	ItemPicker: Item Picker
+	CommandsButton: Commands
+	Header: Chat Helper
+	CloseButton: Close Menu
+
+	SettingsTab: {
+		AlwaysShow: Always show chat
+		ClearChat: Clear Chat
+	}
+}

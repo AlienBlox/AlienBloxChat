@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent.UI.Elements;
+using Terraria.Localization;
 
 namespace AlienBloxChat.ChatOverride.UI.GeneralElements
 {
@@ -7,8 +8,10 @@ namespace AlienBloxChat.ChatOverride.UI.GeneralElements
     {
         private readonly UIItemIcon _icon;
 
-        private readonly string _hoverText;
+        private readonly LocalizedText _text;
 
+        private readonly string _hoverText;
+        
         public ItemBoxRender(int item, string hoverText)
         {
             _icon = new(new(item), false);
@@ -19,9 +22,22 @@ namespace AlienBloxChat.ChatOverride.UI.GeneralElements
             Append(_icon);
         }
 
+        public ItemBoxRender(int item, LocalizedText text)
+        {
+            _icon = new(new(item), false);
+            _icon.Width.Set(0, 1);
+            _icon.Height.Set(0, 1);
+            _text = text;
+
+            Append(_icon);
+        }
+
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
-            this.SetUIBase(_hoverText);
+            if (_text != null)
+                this.SetUIBase(_text.Value);
+            else
+                this.SetUIBase(_hoverText);
 
             base.DrawSelf(spriteBatch);
         }

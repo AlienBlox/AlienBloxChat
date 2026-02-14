@@ -11,13 +11,14 @@ using Terraria.Audio;
 using Terraria.Chat;
 using Terraria.ID;
 using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AlienBloxChat
 {
 	// Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
 	public class AlienBloxChat : Mod
 	{
-        public AlienBloxChat Instance { get; private set; }
+        public static AlienBloxChat Instance { get; private set; }
 
         /// <summary>
         /// Don't see this or you will exception out
@@ -57,7 +58,7 @@ namespace AlienBloxChat
         {
             ChatCache.ChatOutput.Add((newText, new(R, G, B)));
 
-            ChatV2Render.WriteLine(newText.Colorize(new(R, G, B)));
+            ChatV2Render.WriteLine(newText, new(R, G, B));
 
             orig(newText, R, G, B);
         }
@@ -71,7 +72,7 @@ namespace AlienBloxChat
             
             ChatCache.ChatOutput.Add((o.ToString(), color.GetValueOrDefault()));
 
-            ChatV2Render.WriteLine(o.ToString().Colorize(color.GetValueOrDefault()));
+            ChatV2Render.WriteLine(o.ToString(), color.GetValueOrDefault());
 
             orig(o, color);
         }
@@ -80,7 +81,7 @@ namespace AlienBloxChat
         {
             ChatCache.ChatOutput.Add((text, color));
 
-            ChatV2Render.WriteLine(text.Colorize(color));
+            ChatV2Render.WriteLine(text, color);
 
             orig(text, force, color, WidthLimit);
         }
@@ -94,7 +95,7 @@ namespace AlienBloxChat
 
             ChatCache.ChatOutput.Add(($"[{Main.player[clientId].name}]: " + message.Text, Color.White));
 
-            ChatV2Render.WriteLine($"[{Main.player[clientId].name}]: " + message.Text);
+            //ChatV2Render.WriteLine($"[{Main.player[clientId].name}]: " + message.Text);
 
             orig(self, message, clientId);
         }

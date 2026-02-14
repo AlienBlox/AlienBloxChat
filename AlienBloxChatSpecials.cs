@@ -10,6 +10,18 @@ namespace AlienBloxChat
 {
     public static class AlienBloxChatSpecials
     {
+        public static string Merge(this string[] strings, char add)
+        {
+            string s = string.Empty;
+
+            foreach (string stringy in strings)
+            {
+                s += stringy + add;
+            }
+
+            return s;
+        }
+
         public static string Colorize(this string s, Color color)
         {
             return $"[c/{color.Hex3()}:{s}]";

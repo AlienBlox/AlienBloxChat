@@ -97,6 +97,36 @@ namespace AlienBloxChat.ChatOverride.UI.ChatRenders
             Instance.Element.ChatHistory.AddRange(computeLines);
         }
 
+        public static void WriteLine(string text, Color color)
+        {
+            string[] lines = text.Split('\n');
+
+            if (Instance.Element == null)
+            {
+                return;
+            }
+
+            List<UIText> computeLines = [];
+            computeLines.Clear();
+
+            foreach (var line in lines)
+            {
+                UIText TextObj = new(line)
+                {
+                    TextColor = color
+                };
+
+                TextObj.Width.Set(-30, 1);
+                TextObj.Height.Set(30, 0);
+                TextObj.TextOriginX = 0;
+                TextObj.HAlign = 1;
+
+                computeLines.Add(TextObj);
+            }
+
+            Instance.Element.ChatHistory.AddRange(computeLines);
+        }
+
         public static void Clear()
         {
             if (Instance.Element == null)

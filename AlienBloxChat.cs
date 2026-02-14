@@ -7,7 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.Chat;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace AlienBloxChat
@@ -55,6 +57,8 @@ namespace AlienBloxChat
         {
             ChatCache.ChatOutput.Add((newText, new(R, G, B)));
 
+            ChatV2Render.WriteLine(newText.Colorize(new(R, G, B)));
+
             orig(newText, R, G, B);
         }
 
@@ -67,12 +71,16 @@ namespace AlienBloxChat
             
             ChatCache.ChatOutput.Add((o.ToString(), color.GetValueOrDefault()));
 
+            ChatV2Render.WriteLine(o.ToString().Colorize(color.GetValueOrDefault()));
+
             orig(o, color);
         }
 
         public static void ChatOutput(On_Main.orig_NewTextMultiline orig, string text, bool force, Color color, int WidthLimit)
         {
             ChatCache.ChatOutput.Add((text, color));
+
+            ChatV2Render.WriteLine(text.Colorize(color));
 
             orig(text, force, color, WidthLimit);
         }

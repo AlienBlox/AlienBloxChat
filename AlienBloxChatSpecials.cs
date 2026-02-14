@@ -10,6 +10,11 @@ namespace AlienBloxChat
 {
     public static class AlienBloxChatSpecials
     {
+        public static string Colorize(this string s, Color color)
+        {
+            return $"[c/{color.Hex3()}:{s}]";
+        }
+
         public static Vector2 Size(this CalculatedStyle style)
         {
             return new(style.Width, style.Height);

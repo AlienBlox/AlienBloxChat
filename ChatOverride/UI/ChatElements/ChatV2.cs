@@ -26,7 +26,7 @@ namespace AlienBloxChat.ChatOverride.UI.ChatElements
 
         public UIList ChatHistory;
 
-        public FixedUIScrollbar Scroller;
+        public TransparentScrollbar Scroller;
 
         public int HideFull;
 
@@ -293,6 +293,7 @@ namespace AlienBloxChat.ChatOverride.UI.ChatElements
                 return;
             }
 
+            /*
             if (!HideUI)
             {
                 if (HideFull++ >= 60 * 3)
@@ -306,6 +307,7 @@ namespace AlienBloxChat.ChatOverride.UI.ChatElements
             {
                 Backing.Remove();
             }
+            */
 
             if (!ShowCard)
             {

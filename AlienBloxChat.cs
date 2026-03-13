@@ -39,7 +39,7 @@ namespace AlienBloxChat
         public override void Load()
         {
             On_Main.NewText_string_byte_byte_byte += ChatOutput;
-            On_Main.NewText_object_Nullable1 += ChatOutput;
+            //On_Main.NewText_object_Nullable1 += ChatOutput;
             On_Main.NewTextMultiline += ChatOutput;
             On_ChatCommandProcessor.ProcessIncomingMessage += ChatOutput;
             On_ChatCommandProcessor.CreateOutgoingMessage += ChatV2Commands;
@@ -48,7 +48,7 @@ namespace AlienBloxChat
         public override void Unload()
         {
             On_Main.NewText_string_byte_byte_byte -= ChatOutput;
-            On_Main.NewText_object_Nullable1 -= ChatOutput;
+            //On_Main.NewText_object_Nullable1 -= ChatOutput;
             On_Main.NewTextMultiline -= ChatOutput;
             On_ChatCommandProcessor.ProcessIncomingMessage -= ChatOutput;
             On_ChatCommandProcessor.CreateOutgoingMessage -= ChatV2Commands;

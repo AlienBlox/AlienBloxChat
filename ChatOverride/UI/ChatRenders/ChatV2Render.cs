@@ -101,7 +101,7 @@ namespace AlienBloxChat.ChatOverride.UI.ChatRenders
         {
             string[] lines = text.Split('\n');
 
-            if (Instance.Element == null)
+            if (Instance?.Element == null)
             {
                 return;
             }
